@@ -3,7 +3,7 @@ include(../guh.pri)
 TARGET = guh
 TEMPLATE = lib
 
-QT += network
+QT += network qml
 DEFINES += LIBGUH_LIBRARY
 
 QMAKE_LFLAGS += -fPIC
@@ -76,6 +76,7 @@ HEADERS += devicemanager.h \
            types/ruleaction.h \
            types/ruleactionparam.h \
            types/statedescriptor.h \
+    plugin/jsplugin.h
 
 SOURCES += devicemanager.cpp \
            loggingcategories.cpp \
@@ -127,6 +128,7 @@ SOURCES += devicemanager.cpp \
            types/ruleaction.cpp \
            types/ruleactionparam.cpp \
            types/statedescriptor.cpp \
+    plugin/jsplugin.cpp
 
 # install plugininfo python script for libguh-dev
 generateplugininfo.files = $$top_srcdir/plugins/guh-generateplugininfo

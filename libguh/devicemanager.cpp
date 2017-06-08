@@ -183,6 +183,7 @@
 
 #include "plugin/devicepairinginfo.h"
 #include "plugin/deviceplugin.h"
+#include "plugin/jsplugin.h"
 #include "typeutils.h"
 #include "guhsettings.h"
 #include "unistd.h"
@@ -1100,6 +1101,11 @@ void DeviceManager::loadPlugins()
             connect(pluginIface, &DevicePlugin::autoDevicesAppeared, this, &DeviceManager::autoDevicesAppeared);
         }
     }
+
+
+    qCDebug(dcDeviceManager()) << "++++++++++++++++++ loading js plugin";
+    JsPlugin *jsPlugin = new JsPlugin(this);
+    m_devicePlugins.insert(jsPlugin->pluginId(), jsPlugin);
 }
 
 void DeviceManager::loadConfiguredDevices()
