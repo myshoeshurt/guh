@@ -399,9 +399,11 @@ DeviceManager::DeviceError DeviceManager::discoverDevices(const DeviceClassId &d
     ParamList effectiveParams = params;
     DeviceClass deviceClass = findDeviceClass(deviceClassId);
     if (!deviceClass.isValid()) {
+        qCDebug(dcDeviceManager) << "No such DeviceClass" << deviceClassId << "can't discover.";
         return DeviceErrorDeviceClassNotFound;
     }
     if (!deviceClass.createMethods().testFlag(DeviceClass::CreateMethodDiscovery)) {
+        qCDebug(dcDeviceManager) << "DeviceClass" << deviceClassId << "doesn't support discovering.";
         return  DeviceErrorCreationMethodNotSupported;
     }
     DeviceError result = verifyParams(deviceClass.discoveryParamTypes(), effectiveParams);
@@ -414,6 +416,9 @@ DeviceManager::DeviceError DeviceManager::discoverDevices(const DeviceClassId &d
     }
     m_discoveringPlugins.append(plugin);
     DeviceError ret = plugin->discoverDevices(deviceClassId, effectiveParams);
+    if (ret == DeviceErrorCreationMethodNotSupported) {
+        qCDebug(dcDeviceManager) << "Plugin"  << plugin->pluginName() << "doesn't seem to implement discovering. There is a mismatch between the plugin description (json) and the implementation.";
+    }
     if (ret != DeviceErrorAsync) {
         m_discoveringPlugins.removeOne(plugin);
     }
@@ -1026,7 +1031,7 @@ void DeviceManager::loadPlugins()
             loader.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 
             if (!loader.load()) {
-                qCWarning(dcDeviceManager) << "Could not load plugin data of" << entry;
+                qCWarning(dcDeviceManager) << "Could not load plugin data of" << entry << "\n" << loader.errorString();
                 continue;
             }
 
@@ -1354,7 +1359,11 @@ void DeviceManager::autoDevicesAppeared(const DeviceClassId &deviceClassId, cons
 
     foreach (const DeviceDescriptor &deviceDescriptor, deviceDescriptors) {
         Device *device = new Device(plugin->pluginId(), deviceClassId, this);
-        device->setName(deviceClass.name());
+        if (!deviceDescriptor.title().isEmpty()) {
+            device->setName(deviceDescriptor.title());
+        } else {
+            device->setName(deviceClass.name());
+        }
         device->setParams(deviceDescriptor.params());
 
         DeviceSetupStatus setupStatus = setupDevice(device);

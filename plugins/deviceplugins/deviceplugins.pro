@@ -35,6 +35,7 @@ SUBDIRS += \
     senic               \
     multisensor         \
     gpio                \
+    anel                \
 
 disabletesting {
     SUBDIRS -= mock

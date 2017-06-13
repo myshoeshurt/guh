@@ -1,0 +1,132 @@
+{
+    "name": "Anel",
+    "idName": "Anel",
+    "id": "888efa70-661b-4e3e-bb9c-e3e681ed5ece",
+    "vendors": [
+        {
+            "name": "ANEL-Elektronik AG",
+            "idName": "anel",
+            "id": "359c332e-292a-43ca-ba68-f170665a0a28",
+            "deviceClasses": [
+                {
+                    "id": "c014587f-56e3-4e2f-ba82-8b3b7e5bc2f1",
+                    "idName": "netControl",
+                    "name": "NET-PwrCtrl",
+                    "critcalStateTypeId": "08179792-e1d5-471c-9606-e3b19e1030cc",
+                    "deviceIcon": "Network",
+                    "basicTags": [
+                        "Gateway"
+                    ],
+                    "createMethods": ["discovery"],
+                    "discoveryParamTypes": [
+                        {
+                            "id": "bab7269f-b08a-4d82-a139-a3ca10d4aeec",
+                            "idName": "port",
+                            "name": "port",
+                            "type": "int",
+                            "index": 0,
+                            "defaultValue": 75
+                        }
+                    ],
+                    "stateTypes": [
+                        {
+                            "id": "08179792-e1d5-471c-9606-e3b19e1030cc",
+                            "idName": "available",
+                            "name": "available",
+                            "eventTypeName": "available changed",
+                            "index": 0,
+                            "type": "bool",
+                            "defaultValue": false
+                        }
+                    ],
+                    "paramTypes": [
+                        {
+                            "id": "515dff69-0f84-4fac-a137-ed1a0c763290",
+                            "idName": "bridgeIp",
+                            "name": "ip",
+                            "type": "QString",
+                            "index": 1,
+                            "readOnly": true
+                        },
+                        {
+                            "id": "111db359-8aaa-4f90-b447-1f8c0427e3cb",
+                            "idName": "bridgePort",
+                            "name": "port",
+                            "type": "int",
+                            "index": 2,
+                            "readOnly": true
+                        }
+                    ]
+                },
+                {
+                    "id": "71327896-0c22-42d8-8411-810c7f684381",
+                    "idName": "socket",
+                    "name": "Power Socket",
+                    "deviceIcon": "Thermometer",
+                    "basicTags": [
+                        "Device",
+                        "Weather",
+                        "Sensor"
+                    ],
+                    "primaryStateTypeId": "9f4c6d2a-6000-4d03-8650-9c563c6dcfc0",
+                    "createMethods": ["auto"],
+                    "paramTypes": [
+                        {
+                            "id": "a120c939-b290-4761-b0c3-0bf08862eb72",
+                            "idName": "socketIp",
+                            "name": "ip",
+                            "type": "QString",
+                            "index": 0,
+                            "inputType": "TextLine",
+                            "readOnly": false
+                        },
+                        {
+                            "id": "ad5faec8-c320-43fe-bd92-230596f44805",
+                            "idName": "socketPort",
+                            "name": "port",
+                            "type": "int",
+                            "index": 1,
+                            "readOnly": false
+                        },
+                        {
+                            "id": "fc739c1c-1486-4956-8de3-604f5e0f22af",
+                            "idName": "socketNumber",
+                            "name": "number",
+                            "type": "int",
+                            "index": 2,
+                            "readOnly": true
+                        }
+                    ],
+                    "stateTypes": [
+                        {
+                            "id": "9f4c6d2a-6000-4d03-8650-9c563c6dcfc0",
+                            "idName": "powered",
+                            "name": "powered",
+                            "eventTypeName": "powered changed",
+                            "index": 0,
+                            "type": "bool",
+                            "defaultValue": false
+                        }
+                    ],
+                    "actionTypes": [
+                        {
+                            "id": "7eae2f8f-e161-4f53-83c6-f46a6bb8674e",
+                            "idName": "setPower",
+                            "name": "set power",
+                            "index": 0,
+                            "paramTypes": [
+                                {
+                                    "id": "7f51504d-c8f3-4ffe-84cf-73d6e6716e43",
+                                    "idName": "setPowerActionPower",
+                                    "name": "power",
+                                    "type": "bool",
+                                    "index": 0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
