@@ -184,11 +184,20 @@
                             "defaultValue": "-"
                         },
                         {
+                            "id": "dfd0fc08-624c-4047-a6d3-d28b7be35384",
+                            "idName": "weatherIcon",
+                            "name": "weatherIcon",
+                            "eventTypeName": "weather icon changed",
+                            "index": 11,
+                            "type": "QString",
+                            "defaultValue": "unknown"
+                        },
+                        {
                             "id": "af155e94-9492-44e1-8608-7d0ee8b5d50d",
                             "idName": "sunset",
                             "name": "sunset",
                             "eventTypeName": "sunset changed",
-                            "index": 11,
+                            "index": 12,
                             "unit": "UnixTime",
                             "type": "int",
                             "defaultValue": 0
@@ -198,7 +207,7 @@
                             "idName": "sunrise",
                             "name": "sunrise",
                             "eventTypeName": "sunrise changed",
-                            "index": 12,
+                            "index": 13,
                             "unit": "UnixTime",
                             "type": "int",
                             "defaultValue": 0

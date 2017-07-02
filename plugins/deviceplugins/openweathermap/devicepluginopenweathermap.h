@@ -74,6 +74,8 @@ private:
     void processSearchResults(const QList<QVariantMap> &cityList);
     void processWeatherData(const QByteArray &data, Device *device);
 
+    QString conditionIdToIcon(int conditionId, const QDateTime &now, const QDateTime &sunrise, const QDateTime &sunset, bool windAlert) const;
+
 private slots:
     void onTimeout();
 

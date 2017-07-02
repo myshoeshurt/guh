@@ -364,12 +364,14 @@ void DevicePluginOpenweathermap::processWeatherData(const QByteArray &data, Devi
         device->setStateValue(humidityStateTypeId, humidity);
     }
 
+    QDateTime sunrise = QDateTime::fromMSecsSinceEpoch(dataMap.value("sys").toMap().value("sunrise").toULongLong() * 1000);
+    QDateTime sunset = QDateTime::fromMSecsSinceEpoch(dataMap.value("sys").toMap().value("sunset").toULongLong() * 1000);
+    QDateTime now = QDateTime::currentDateTime();
+    bool haveTimes = false;
     if (dataMap.contains("sys")) {
-        uint sunrise = dataMap.value("sys").toMap().value("sunrise").toUInt();
-        uint sunset = dataMap.value("sys").toMap().value("sunset").toUInt();
-
-        device->setStateValue(sunriseStateTypeId, sunrise);
-        device->setStateValue(sunsetStateTypeId, sunset);
+        device->setStateValue(sunriseStateTypeId, sunrise.toMSecsSinceEpoch() / 1000);
+        device->setStateValue(sunsetStateTypeId, sunset.toMSecsSinceEpoch() / 1000);
+        haveTimes = true;
     }
 
     if (dataMap.contains("visibility")) {
@@ -378,17 +380,28 @@ void DevicePluginOpenweathermap::processWeatherData(const QByteArray &data, Devi
     }
 
     // http://openweathermap.org/weather-conditions
+    int conditionId = 0;
+    bool haveConditions = false;
     if (dataMap.contains("weather")) {
+        conditionId = dataMap.value("weather").toList().first().toMap().value("id").toInt();
         QString description = dataMap.value("weather").toList().first().toMap().value("description").toString();
         device->setStateValue(weatherDescriptionStateTypeId, description);
+        haveConditions = true;
     }
 
+    bool haveWind = false;
+    bool windAlert = false;
     if (dataMap.contains("wind")) {
         int windDirection = dataMap.value("wind").toMap().value("deg").toInt();
         double windSpeed = dataMap.value("wind").toMap().value("speed").toDouble();
-
+        windAlert = windSpeed > 35; // This value is for metric units, 22 fits for imperial ones
         device->setStateValue(windDirectionStateTypeId, windDirection);
         device->setStateValue(windSpeedStateTypeId, windSpeed);
+        haveWind = true;
+    }
+
+    if (haveTimes && haveConditions && haveWind) {
+        device->setStateValue(weatherIconStateTypeId, conditionIdToIcon(conditionId, now, sunrise, sunset, windAlert));
     }
 }
 
@@ -399,3 +412,31 @@ void DevicePluginOpenweathermap::onTimeout()
     }
 }
 
+QString DevicePluginOpenweathermap::conditionIdToIcon(int conditionId, const QDateTime &now, const QDateTime &sunrise, const QDateTime &sunset, bool windAlert) const
+{
+    if (windAlert) {
+        return "wind";
+    }
+    if (conditionId < 300) {
+        return "thunder";
+    } else if (conditionId < 400) {
+        return "scattered";
+    } else if (conditionId < 600) {
+        return "rain";
+    } else if (conditionId < 700) {
+        return "snow";
+    } else if (conditionId < 800) {
+        return "fog";
+    } else if (conditionId == 800) {
+        return (now > sunrise && now < sunset) ? "sun" : "moon";
+    } else if (conditionId == 801) {
+        return (now > sunrise && now < sunset) ? "cloud_sun" : "cloud_moon";
+    } else if (conditionId == 802) {
+        return "cloud";
+    } else if (conditionId <= 804) {
+        return "overcast";
+    } else if (conditionId < 900) {
+        return "cloud";
+    }
+    return QString();
+}
