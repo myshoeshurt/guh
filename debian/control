@@ -164,10 +164,7 @@ Multi-Arch: same
 Depends: libguh1 (= ${binary:Version}),
          ${shlibs:Depends},
          ${misc:Depends},
-         python:any,
-         rsync,
          qtconnectivity5-dev,
-         qttools5-dev-tools,
          libqt5websockets5-dev,
          libavahi-client-dev,
          libavahi-common-dev
@@ -178,4 +175,23 @@ Description: An open source IoT server - development files
  With the powerful rule engine you are able to connect any device available
  in the system and create individual scenes and behaviors for your environment.
  .
- This package will install the development files and compilers for guh.
+ This package will install the development files for guh.
+
+
+Package: guh-plugin-dev-tools
+Section: libdevel
+Architecture: all
+Multi-Arch: foreign
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         python:any,
+         rsync,
+         qttools5-dev-tools
+Description: An open source IoT server - development files
+ The guh daemon is a plugin based IoT (Internet of Things) server. The
+ server works like a translator for devices, things and services and
+ allows them to interact.
+ With the powerful rule engine you are able to connect any device available
+ in the system and create individual scenes and behaviors for your environment.
+ .
+ This package will install the compilers for guh.
