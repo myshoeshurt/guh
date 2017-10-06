@@ -110,6 +110,7 @@ public:
 
     static QStringList pluginSearchDirs();
     static QList<QJsonObject> pluginsMetadata();
+    void registerStaticPlugin(DevicePlugin* plugin, const QJsonObject &metaData);
 
     void setLocale(const QLocale &locale);
 
@@ -167,6 +168,7 @@ public slots:
 
 private slots:
     void loadPlugins();
+    void loadPlugin(DevicePlugin *pluginIface);
     void loadConfiguredDevices();
     void storeConfiguredDevices();
     void startMonitoringAutoDevices();

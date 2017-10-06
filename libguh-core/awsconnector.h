@@ -48,6 +48,9 @@ public:
 
     void sendWebRtcHandshakeMessage(const QString &sessionId, const QVariantMap &map);
 
+public slots:
+    void sendNotification(const QString &title, const QString &text);
+
 signals:
     void connected();
     void disconnected();

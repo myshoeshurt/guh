@@ -237,6 +237,14 @@ void AWSConnector::sendWebRtcHandshakeMessage(const QString &sessionId, const QV
     publish(sessionId + "/reply", map);
 }
 
+void AWSConnector::sendNotification(const QString &title, const QString &text)
+{
+    QVariantMap params;
+    params.insert("title", title);
+    params.insert("text", text);
+    publish("testtopic/pushnotification", params);
+}
+
 quint16 AWSConnector::publish(const QString &topic, const QVariantMap &message)
 {
     if (!m_setupInProgress && !isConnected()) {

@@ -22,6 +22,8 @@
 #include "awsconnector.h"
 #include "janusconnector.h"
 #include "loggingcategories.h"
+#include "cloudnotifications.h"
+
 
 CloudManager::CloudManager(NetworkManager *networkManager, QObject *parent) : QObject(parent),
     m_networkManager(networkManager)
@@ -129,6 +131,13 @@ void CloudManager::pairDevice(const QString &idToken, const QString &userId)
 bool CloudManager::keepAlive(const QString &sessionId)
 {
     return m_janusConnector->sendKeepAliveMessage(sessionId);
+}
+
+CloudNotifications *CloudManager::createNotificationsPlugin() const
+{
+    CloudNotifications* notifications = new CloudNotifications();
+    connect(notifications, &CloudNotifications::notify, m_awsConnector, &AWSConnector::sendNotification);
+    return notifications;
 }
 
 void CloudManager::connect2aws()
