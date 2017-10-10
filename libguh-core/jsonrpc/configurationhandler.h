@@ -51,15 +51,21 @@ public:
 signals:
     void BasicConfigurationChanged(const QVariantMap &params);
     void TcpServerConfigurationChanged(const QVariantMap &params);
+    void TcpServerConfigurationRemoved(const QVariantMap &params);
     void WebServerConfigurationChanged(const QVariantMap &params);
+    void WebServerConfigurationRemoved(const QVariantMap &params);
     void WebSocketServerConfigurationChanged(const QVariantMap &params);
+    void WebSocketServerConfigurationRemoved(const QVariantMap &params);
     void LanguageChanged(const QVariantMap &params);
 
 private slots:
     void onBasicConfigurationChanged();
     void onTcpServerConfigurationChanged(const QString &id);
+    void onTcpServerConfigurationRemoved(const QString &id);
     void onWebServerConfigurationChanged(const QString &id);
+    void onWebServerConfigurationRemoved(const QString &id);
     void onWebSocketServerConfigurationChanged(const QString &id);
+    void onWebSocketServerConfigurationRemoved(const QString &id);
     void onLanguageChanged();
 
 };

@@ -280,6 +280,16 @@ void TestConfigurations::testLanguages()
     disableNotifications();
 }
 
+void TestConfigurations::testTcpServerConfiguration()
+{
+    // Add a new TCP server
+
+
+
+
+
+}
+
 QVariantMap TestConfigurations::loadBasicConfiguration()
 {
     QVariant response = injectAndWait("Configuration.GetConfigurations");

@@ -175,20 +175,22 @@ ConfigurationHandler::ConfigurationHandler(QObject *parent):
 
     params.clear(); returns.clear();
     setDescription("TcpServerConfigurationChanged", "Emitted whenever the TCP server configuration changes.");
-    params.insert("host", JsonTypes::basicTypeToString(JsonTypes::String));
-    params.insert("port", JsonTypes::basicTypeToString(JsonTypes::Uint));
+    params.insert("configuration", JsonTypes::serverConfigurationRef());
     setParams("TcpServerConfigurationChanged", params);
 
     params.clear(); returns.clear();
+    setDescription("TcpServerConfigurationRemoved", "Emitted whenever the TCP server configuration has been removed.");
+    params.insert("configuration", JsonTypes::serverConfigurationRef());
+    setParams("TcpServerConfigurationRemoved", params);
+
+    params.clear(); returns.clear();
     setDescription("WebServerConfigurationChanged", "Emitted whenever the web server configuration changes.");
-    params.insert("host", JsonTypes::basicTypeToString(JsonTypes::String));
-    params.insert("port", JsonTypes::basicTypeToString(JsonTypes::Uint));
+    params.insert("configuration", JsonTypes::serverConfigurationRef());
     setParams("WebServerConfigurationChanged", params);
 
     params.clear(); returns.clear();
     setDescription("WebSocketServerConfigurationChanged", "Emitted whenever the web socket server configuration changes.");
-    params.insert("host", JsonTypes::basicTypeToString(JsonTypes::String));
-    params.insert("port", JsonTypes::basicTypeToString(JsonTypes::Uint));
+    params.insert("configuration", JsonTypes::serverConfigurationRef());
     setParams("WebSocketServerConfigurationChanged", params);
 
     params.clear(); returns.clear();
@@ -200,8 +202,11 @@ ConfigurationHandler::ConfigurationHandler(QObject *parent):
     connect(GuhCore::instance()->configuration(), &GuhConfiguration::timeZoneChanged, this, &ConfigurationHandler::onBasicConfigurationChanged);
     connect(GuhCore::instance()->configuration(), &GuhConfiguration::localeChanged, this, &ConfigurationHandler::onBasicConfigurationChanged);
     connect(GuhCore::instance()->configuration(), &GuhConfiguration::tcpServerConfigurationChanged, this, &ConfigurationHandler::onTcpServerConfigurationChanged);
+    connect(GuhCore::instance()->configuration(), &GuhConfiguration::tcpServerConfigurationRemoved, this, &ConfigurationHandler::onTcpServerConfigurationRemoved);
     connect(GuhCore::instance()->configuration(), &GuhConfiguration::webServerConfigurationChanged, this, &ConfigurationHandler::onWebServerConfigurationChanged);
+    connect(GuhCore::instance()->configuration(), &GuhConfiguration::webServerConfigurationRemoved, this, &ConfigurationHandler::onWebServerConfigurationRemoved);
     connect(GuhCore::instance()->configuration(), &GuhConfiguration::webSocketServerConfigurationChanged, this, &ConfigurationHandler::onWebSocketServerConfigurationChanged);
+    connect(GuhCore::instance()->configuration(), &GuhConfiguration::webSocketServerConfigurationRemoved, this, &ConfigurationHandler::onWebSocketServerConfigurationRemoved);
     connect(GuhCore::instance()->deviceManager(), &DeviceManager::languageUpdated, this, &ConfigurationHandler::onLanguageChanged);
 }
 
@@ -401,30 +406,48 @@ void ConfigurationHandler::onTcpServerConfigurationChanged(const QString &id)
 {
     QVariantMap params;
     qCDebug(dcJsonRpc()) << "Notification: TCP server configuration changed";
-    params.insert("tcpServerConfiguration", JsonTypes::packServerConfiguration(GuhCore::instance()->configuration()->tcpServerConfigurations().value(id)));
+    params.insert("configuration", JsonTypes::packServerConfiguration(GuhCore::instance()->configuration()->tcpServerConfigurations().value(id)));
+    emit TcpServerConfigurationChanged(params);
+}
+
+void ConfigurationHandler::onTcpServerConfigurationRemoved(const QString &id)
+{
+    QVariantMap params;
+    qCDebug(dcJsonRpc()) << "Notification: TCP server configuration removed";
+    params.insert("configuration", JsonTypes::packServerConfiguration(GuhCore::instance()->configuration()->tcpServerConfigurations().value(id)));
     emit TcpServerConfigurationChanged(params);
 }
 
 void ConfigurationHandler::onWebServerConfigurationChanged(const QString &id)
 {
     QVariantMap params;
-    qCDebug(dcJsonRpc()) << "Notification: web server configuration changed";
-    params.insert("webServerConfiguration", JsonTypes::packWebServerConfiguration(GuhCore::instance()->configuration()->webServerConfigurations().value(id)));
+    qCDebug(dcJsonRpc()) << "Notification: Web server configuration changed";
+    params.insert("configuration", JsonTypes::packServerConfiguration(GuhCore::instance()->configuration()->webServerConfigurations().value(id)));
     emit WebServerConfigurationChanged(params);
+}
+
+void ConfigurationHandler::onWebServerConfigurationRemoved(const QString &id)
+{
+
 }
 
 void ConfigurationHandler::onWebSocketServerConfigurationChanged(const QString &id)
 {
     QVariantMap params;
-    qCDebug(dcJsonRpc()) << "Notification: web socket server configuration changed";
-    params.insert("webSocketServerConfiguration", JsonTypes::packServerConfiguration(GuhCore::instance()->configuration()->webSocketServerConfigurations().value(id)));
+    qCDebug(dcJsonRpc()) << "Notification: Web socket server configuration changed";
+    params.insert("configuration", JsonTypes::packServerConfiguration(GuhCore::instance()->configuration()->webSocketServerConfigurations().value(id)));
     emit WebSocketServerConfigurationChanged(params);
+}
+
+void ConfigurationHandler::onWebSocketServerConfigurationRemoved(const QString &id)
+{
+
 }
 
 void ConfigurationHandler::onLanguageChanged()
 {
     QVariantMap params;
-    qCDebug(dcJsonRpc()) << "Notification: language configuration changed";
+    qCDebug(dcJsonRpc()) << "Notification: Language configuration changed";
     params.insert("language", GuhCore::instance()->configuration()->locale().name());
     emit LanguageChanged(params);
 }
