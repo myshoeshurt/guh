@@ -212,7 +212,7 @@
             url.setPath("/.well-known/core");
             CoapReply *reply = m_coap->get(CoapRequest(url));
 
-            // Check imediatly if the there occured any error
+            // Check imediatly if an error occurred
             if (reply->error() != CoapReply::NoError) {
                 qCWarning(dcCoapClient) << "Could not discover CoAP server:" << reply->errorString();
                 reply->deleteLater();
