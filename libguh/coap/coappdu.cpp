@@ -191,11 +191,11 @@ QString CoapPdu::getStatusCodeString(const CoapPdu::StatusCode &statusCode)
     QMetaEnum statusCodeEnum = metaObject.enumerator(metaObject.indexOfEnumerator("StatusCode"));
     int classNumber = (statusCode & 0xE0) >> 5;
     int detailNumber = statusCode & 0x1F;
-    statusCodeString.append(QString::number(classNumber) + ".");
+    statusCodeString.append(QString::number(classNumber) + '.');
     if (detailNumber < 10)
         statusCodeString.append("0");
 
-    statusCodeString.append(QString::number(detailNumber) + " ");
+    statusCodeString.append(QString::number(detailNumber) + ' ');
     statusCodeString.append(statusCodeEnum.valueToKey(statusCode));
     return statusCodeString;
 }

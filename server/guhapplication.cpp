@@ -110,13 +110,13 @@ static void printBacktrace()
         if (!functionString.isEmpty())
             qCWarning(dcApplication) << functionString;
 
-        qCWarning(dcApplication) << QString("    %1").arg(line.remove("\n"));
+        qCWarning(dcApplication) << QString("    %1").arg(line.remove('\n'));
 #else
         qCCritical(dcApplication) << QString("[%1] %2").arg(i).arg(symbolList[i]);
         if (!functionString.isEmpty())
             qCCritical(dcApplication) << functionString;
 
-        qCCritical(dcApplication) << QString("    %1").arg(line.remove("\n"));
+        qCCritical(dcApplication) << QString("    %1").arg(line.remove('\n'));
 #endif // QT_VERSION
 
     }

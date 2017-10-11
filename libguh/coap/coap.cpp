@@ -328,7 +328,7 @@ void Coap::sendRequest(CoapReply *reply, const bool &lookedUp)
     if (reply->port() != 5683)
         pdu.addOption(CoapOption::UriPort, QByteArray::number(reply->request().url().port()));
 
-    QStringList urlTokens = reply->request().url().path().split("/");
+    QStringList urlTokens = reply->request().url().path().split('/');
     urlTokens.removeAll(QString());
 
     // Option number 11
@@ -528,7 +528,7 @@ void Coap::processNotification(const CoapPdu &pdu, const QHostAddress &address, 
             // Option number 3
             pdu.addOption(CoapOption::UriHost, m_observerReply->request().url().host().toUtf8());
 
-            QStringList urlTokens = m_observerReply->request().url().path().split("/");
+            QStringList urlTokens = m_observerReply->request().url().path().split('/');
             urlTokens.removeAll(QString());
 
             // Option number 11
@@ -612,7 +612,7 @@ void Coap::processBlock1Response(CoapReply *reply, const CoapPdu &pdu)
     if (reply->port() != 5683)
         nextBlockRequest.addOption(CoapOption::UriPort, QByteArray::number(reply->request().url().port()));
 
-    QStringList urlTokens = reply->request().url().path().split("/");
+    QStringList urlTokens = reply->request().url().path().split('/');
     urlTokens.removeAll(QString());
 
     // Option number 11
@@ -667,7 +667,7 @@ void Coap::processBlock2Response(CoapReply *reply, const CoapPdu &pdu)
     if (reply->port() != 5683)
         nextBlockRequest.addOption(CoapOption::UriPort, QByteArray::number(reply->request().url().port()));
 
-    QStringList urlTokens = reply->request().url().path().split("/");
+    QStringList urlTokens = reply->request().url().path().split('/');
     urlTokens.removeAll(QString());
 
     // Option number 11
@@ -740,7 +740,7 @@ void Coap::processBlock2Notification(CoapReply *reply, const CoapPdu &pdu)
     if (reply->port() != 5683)
         nextBlockRequest.addOption(CoapOption::UriPort, QByteArray::number(reply->request().url().port()));
 
-    QStringList urlTokens = reply->request().url().path().split("/");
+    QStringList urlTokens = reply->request().url().path().split('/');
     urlTokens.removeAll(QString());
 
     // Option number 11

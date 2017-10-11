@@ -397,10 +397,10 @@ void JsonRPCServer::processData(const QUuid &clientId, const QByteArray &data)
 
 QString JsonRPCServer::formatAssertion(const QString &targetNamespace, const QString &method, JsonHandler *handler, const QVariantMap &data) const
 {
-    QJsonDocument doc = QJsonDocument::fromVariant(handler->introspect(QMetaMethod::Method).value(targetNamespace + "." + method));
+    QJsonDocument doc = QJsonDocument::fromVariant(handler->introspect(QMetaMethod::Method).value(targetNamespace + '.' + method));
     QJsonDocument doc2 = QJsonDocument::fromVariant(data);
     return QString("\nMethod: %1\nTemplate: %2\nValue: %3")
-            .arg(targetNamespace + "." + method)
+            .arg(targetNamespace + '.' + method)
             .arg(QString(doc.toJson(QJsonDocument::Compact)))
             .arg(QString(doc2.toJson(QJsonDocument::Compact)));
 }
@@ -412,7 +412,7 @@ void JsonRPCServer::sendNotification(const QVariantMap &params)
 
     QVariantMap notification;
     notification.insert("id", m_notificationId++);
-    notification.insert("notification", handler->name() + "." + method.name());
+    notification.insert("notification", handler->name() + '.' + method.name());
     notification.insert("params", params);
 
     foreach (TransportInterface *interface, m_interfaces.keys()) {

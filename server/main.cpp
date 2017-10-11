@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
     QStringList sortedFilterList = QStringList(s_loggingFilters.keys());
     sortedFilterList.sort();
     foreach (const QString &filterName, sortedFilterList)
-        debugDescription += "\n- " + filterName + " (" + (s_loggingFilters.value(filterName) ? "yes" : "no") + ")";
+        debugDescription += "\n- " + filterName + " (" + (s_loggingFilters.value(filterName) ? "yes" : "no") + ')';
 
 
     // create sorted plugin loggingFiler list
@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
     sortedPluginList.sort();
     debugDescription += "\n\nPlugin categories:\n";
     foreach (const QString &filterName, sortedPluginList)
-        debugDescription += "\n- " + filterName + " (" + (s_loggingFilters.value(filterName) ? "yes" : "no") + ")";
+        debugDescription += "\n- " + filterName + " (" + (s_loggingFilters.value(filterName) ? "yes" : "no") + ')';
 
 
     QCommandLineOption allOption(QStringList() << "p" << "print-all", QCoreApplication::translate("main", "Enables all debug categories. This parameter overrides all debug category parameters."));

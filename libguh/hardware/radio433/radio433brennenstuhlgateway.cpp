@@ -52,7 +52,7 @@ bool Radio433BrennenstuhlGateway::sendData(int delay, QList<int> rawData, int re
 
     // bring rawData list to a single ByteArray, values separated by ','
     foreach (int value, rawData) {
-        data.append(QString::number(value) + ",");
+        data.append(QString::number(value) + ',');
     }
 
     /* Protocol:
@@ -69,7 +69,7 @@ bool Radio433BrennenstuhlGateway::sendData(int delay, QList<int> rawData, int re
      * ;        |   end of command
      */
 
-    message.append("TXP:0,0," + QString::number(repetitions) + ",0," + QString::number(delay) + "," + QString::number(rawData.count()/2) + "," + data + ";");
+    message.append("TXP:0,0," + QString::number(repetitions) + ",0," + QString::number(delay) + ',' + QString::number(rawData.count()/2) + ',' + data + ',');
 
     if (m_gateway->writeDatagram(message, m_gatewayAddress, m_port) > 0) {
         m_available = true;

@@ -316,7 +316,7 @@ void HttpReply::packReply()
     // set status code
     m_data.clear();
     m_rawHeader.clear();
-    m_rawHeader.append("HTTP/1.1 " + QByteArray::number(m_statusCode) + " " + getHttpReasonPhrase(m_statusCode) + "\r\n");
+    m_rawHeader.append("HTTP/1.1 " + QByteArray::number(m_statusCode) + ' ' + getHttpReasonPhrase(m_statusCode) + "\r\n");
 
     // write header
     foreach (const QByteArray &headerName, m_rawHeaderList.keys()) {

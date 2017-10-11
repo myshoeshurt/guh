@@ -74,7 +74,7 @@ QVariantMap JsonHandler::introspect(QMetaMethod::MethodType type)
             methodData.insert("description", m_descriptions.value(method.name()));
             methodData.insert("params", m_params.value(method.name()));
             methodData.insert("returns", m_returns.value(method.name()));
-            data.insert(name() + "." + method.name(), methodData);
+            data.insert(name() + '.' + method.name(), methodData);
             break;
         }
         case QMetaMethod::Signal: {
@@ -86,7 +86,7 @@ QVariantMap JsonHandler::introspect(QMetaMethod::MethodType type)
                 QVariantMap methodData;
                 methodData.insert("description", m_descriptions.value(method.name()));
                 methodData.insert("params", m_params.value(method.name()));
-                data.insert(name() + "." + method.name(), methodData);
+                data.insert(name() + '.' + method.name(), methodData);
             }
             break;
         default:

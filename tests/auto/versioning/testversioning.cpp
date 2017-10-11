@@ -80,7 +80,7 @@ void TestVersioning::apiChangeBumpsVersion()
     newVersionStripped = newVersionStripped.remove(QRegExp("\\+[0-9\\.~a-f]*"));
 
     qDebug() << "JSON API version:" << oldVersion;
-    qDebug() << "Binary version:" << newVersion << "(" + newVersionStripped + ")";
+    qDebug() << "Binary version:" << newVersion << '(' + newVersionStripped + ')';
 
     if (oldVersion == newVersionStripped && oldApi == newApi) {
         // All fine. no changes

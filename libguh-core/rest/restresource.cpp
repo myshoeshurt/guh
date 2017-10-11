@@ -103,7 +103,7 @@ HttpReply *RestResource::createCorsSuccessReply()
 HttpReply *RestResource::createErrorReply(const HttpReply::HttpStatusCode &statusCode)
 {
     HttpReply *reply = new HttpReply(statusCode, HttpReply::TypeSync);
-    reply->setPayload(QByteArray::number(reply->httpStatusCode()) + " " + reply->httpReasonPhrase());
+    reply->setPayload(QByteArray::number(reply->httpStatusCode()) + ' ' + reply->httpReasonPhrase());
     return reply;
 }
 
@@ -146,7 +146,7 @@ HttpReply *RestResource::createLoggingErrorReply(const HttpReply::HttpStatusCode
 HttpReply *RestResource::createAsyncReply()
 {
     HttpReply *reply = new HttpReply(HttpReply::Ok, HttpReply::TypeAsync);
-    reply->setPayload(QByteArray::number(reply->httpStatusCode()) + " " + reply->httpReasonPhrase());
+    reply->setPayload(QByteArray::number(reply->httpStatusCode()) + ' ' + reply->httpReasonPhrase());
     return reply;
 }
 

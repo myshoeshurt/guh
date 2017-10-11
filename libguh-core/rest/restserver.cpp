@@ -100,7 +100,7 @@ void RestServer::clientDisconnected(const QUuid &clientId)
 
 void RestServer::processHttpRequest(const QUuid &clientId, const HttpRequest &request)
 {
-    QStringList urlTokens = request.url().path().split("/");
+    QStringList urlTokens = request.url().path().split('/');
     urlTokens.removeAll(QString());
 
     // check token count

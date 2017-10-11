@@ -192,7 +192,7 @@ QString WebServer::fileName(const QString &query)
         fileName = query;
     }
 
-    return m_configuration.publicFolder + "/" + fileName;
+    return m_configuration.publicFolder + '/' + fileName;
 }
 
 HttpReply *WebServer::processIconRequest(const QString &fileName)
@@ -202,7 +202,7 @@ HttpReply *WebServer::processIconRequest(const QString &fileName)
 
     QByteArray imageData;
 
-    QImage image(":" + fileName);
+    QImage image(':' + fileName);
     QBuffer buffer(&imageData);
     buffer.open(QIODevice::WriteOnly);
     image.save(&buffer, "png");
@@ -398,27 +398,27 @@ void WebServer::readClient()
             HttpReply *reply = RestResource::createSuccessReply();
 
             // check content type
-            if (file.fileName().endsWith(QStringLiteral(".html"))) {
+            if (file.fileName().endsWith(QLatin1String(".html"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "text/html; charset=\"utf-8\";");
-            } else if (file.fileName().endsWith(QStringLiteral(".css"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".css"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "text/css; charset=\"utf-8\";");
-            } else if (file.fileName().endsWith(QStringLiteral(".pdf"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".pdf"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "application/pdf");
-            } else if (file.fileName().endsWith(QStringLiteral(".js"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".js"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "text/javascript; charset=\"utf-8\";");
-            } else if (file.fileName().endsWith(QStringLiteral(".ttf"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".ttf"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "application/x-font-ttf");
-            } else if (file.fileName().endsWith(QStringLiteral(".eot"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".eot"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "application/vnd.ms-fontobject");
-            } else if (file.fileName().endsWith(QStringLiteral(".woff"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".woff"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "application/x-font-woff");
-            } else if (file.fileName().endsWith(QStringLiteral(".jpg")) || file.fileName().endsWith(QStringLiteral(".jpeg"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".jpg")) || file.fileName().endsWith(QLatin1String(".jpeg"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "image/jpeg");
-            } else if (file.fileName().endsWith(QStringLiteral(".png")) || file.fileName().endsWith(QStringLiteral(".PNG"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".png")) || file.fileName().endsWith(QLatin1String(".PNG"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "image/png");
-            } else if (file.fileName().endsWith(QStringLiteral(".ico"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".ico"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "image/x-icon");
-            } else if (file.fileName().endsWith(QStringLiteral(".svg"))) {
+            } else if (file.fileName().endsWith(QLatin1String(".svg"))) {
                 reply->setHeader(HttpReply::ContentTypeHeader, "image/svg+xml; charset=\"utf-8\";");
             }
 

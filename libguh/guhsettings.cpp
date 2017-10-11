@@ -63,11 +63,11 @@ GuhSettings::GuhSettings(const SettingsRole &role, QObject *parent):
     QObject(parent),
     m_role(role)
 {
-    QString settingsPrefix = QCoreApplication::instance()->organizationName() + "/";
+    QString settingsPrefix = QCoreApplication::instance()->organizationName() + '/';
 
     QString basePath;
     if (!qgetenv("SNAP").isEmpty()) {
-        basePath = QString(qgetenv("SNAP_DATA")) + "/";
+        basePath = QString(qgetenv("SNAP_DATA")) + '/';
         settingsPrefix.clear(); // We don't want that in the snappy case...
     } else if (settingsPrefix == "guh-test/") {
         basePath = "/tmp/";

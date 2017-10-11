@@ -29,7 +29,7 @@ Pwm::Pwm(int chipNumber, QObject *parent) :
     m_period(0),
     m_dutyCycle(0)
 {
-    m_pwmDirectory = QDir("/sys/class/pwm/pwmchip" + QString::number(chipNumber) + "/");
+    m_pwmDirectory = QDir("/sys/class/pwm/pwmchip" + QString::number(chipNumber) + '/');
 }
 
 Pwm::~Pwm()
