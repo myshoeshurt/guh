@@ -1570,7 +1570,7 @@ QPair<bool, QString> JsonTypes::validateMap(const QVariantMap &templateMap, cons
     foreach (const QString &key, templateMap.keys()) {
         QString strippedKey = key;
         strippedKey.remove(QRegExp("^o:"));
-        if (!key.startsWith("o:") && !map.contains(strippedKey)) {
+        if (!key.startsWith(QStringLiteral("o:")) && !map.contains(strippedKey)) {
             qCWarning(dcJsonRpc) << "*** missing key" << key;
             qCWarning(dcJsonRpc) << "Expected:      " << templateMap;
             qCWarning(dcJsonRpc) << "Got:           " << map;
@@ -1667,7 +1667,7 @@ QPair<bool, QString> JsonTypes::validateVariant(const QVariant &templateVariant,
 {
     switch(templateVariant.type()) {
     case QVariant::String:
-        if (templateVariant.toString().startsWith("$ref:")) {
+        if (templateVariant.toString().startsWith(QStringLiteral("$ref:"))) {
             QString refName = templateVariant.toString();
             if (refName == actionRef()) {
                 QPair<bool, QString> result = validateMap(actionDescription(), variant.toMap());

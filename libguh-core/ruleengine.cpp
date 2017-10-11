@@ -223,14 +223,14 @@ RuleEngine::RuleEngine(QObject *parent) :
         QList<EventDescriptor> eventDescriptorList;
         settings.beginGroup("events");
         foreach (QString eventGroupName, settings.childGroups()) {
-            if (eventGroupName.startsWith("EventDescriptor-")) {
+            if (eventGroupName.startsWith(QStringLiteral("EventDescriptor-"))) {
                 settings.beginGroup(eventGroupName);
                 EventTypeId eventTypeId(settings.value("eventTypeId").toString());
                 DeviceId deviceId(settings.value("deviceId").toString());
 
                 QList<ParamDescriptor> params;
                 foreach (QString groupName, settings.childGroups()) {
-                    if (groupName.startsWith("ParamDescriptor-")) {
+                    if (groupName.startsWith(QStringLiteral("ParamDescriptor-"))) {
                         settings.beginGroup(groupName);
                         ParamDescriptor paramDescriptor(ParamTypeId(groupName.remove(QRegExp("^ParamDescriptor-"))), settings.value("value"));
                         paramDescriptor.setOperatorType((Types::ValueOperator)settings.value("operator").toInt());
@@ -261,7 +261,7 @@ RuleEngine::RuleEngine(QObject *parent) :
 
             RuleActionParamList params;
             foreach (QString paramTypeIdString, settings.childGroups()) {
-                if (paramTypeIdString.startsWith("RuleActionParam-")) {
+                if (paramTypeIdString.startsWith(QStringLiteral("RuleActionParam-"))) {
                     settings.beginGroup(paramTypeIdString);
                     RuleActionParam param(ParamTypeId(paramTypeIdString.remove(QRegExp("^RuleActionParam-"))),
                                           settings.value("value",QVariant()),
@@ -290,7 +290,7 @@ RuleEngine::RuleEngine(QObject *parent) :
 
             RuleActionParamList params;
             foreach (QString paramTypeIdString, settings.childGroups()) {
-                if (paramTypeIdString.startsWith("RuleActionParam-")) {
+                if (paramTypeIdString.startsWith(QStringLiteral("RuleActionParam-"))) {
                     settings.beginGroup(paramTypeIdString);
                     RuleActionParam param(ParamTypeId(paramTypeIdString.remove(QRegExp("^RuleActionParam-"))),
                                           settings.value("value"));

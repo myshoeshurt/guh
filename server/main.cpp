@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
     // check debug area
     if (!parser.isSet(allOption)) {
         foreach (QString debugArea, parser.values(debugOption)) {
-            bool enable = !debugArea.startsWith("No");
+            bool enable = !debugArea.startsWith(QStringLiteral("No"));
             debugArea.remove(QRegExp("^No"));
             if (s_loggingFilters.contains(debugArea)) {
                 s_loggingFilters[debugArea] = enable;

@@ -289,7 +289,7 @@ void CoapTests::extendedDelta()
     QCOMPARE(reply->statusCode(), CoapPdu::Content);
     QCOMPARE(reply->contentType(), CoapPdu::TextPlain);
     QCOMPARE(reply->error(), CoapReply::NoError);
-    QVERIFY2(reply->payload().startsWith("resource with option"), "Invalid payload");
+    QVERIFY2(reply->payload().startsWith(QByteArrayLiteral("resource with option")), "Invalid payload");
     reply->deleteLater();
 }
 

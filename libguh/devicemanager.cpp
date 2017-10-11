@@ -284,7 +284,7 @@ QList<QJsonObject> DeviceManager::pluginsMetadata()
         QDir dir(path);
         foreach (const QString &entry, dir.entryList()) {
             QFileInfo fi;
-            if (entry.startsWith("libguh_deviceplugin") && entry.endsWith(".so")) {
+            if (entry.startsWith(QStringLiteral("libguh_deviceplugin")) && entry.endsWith(QStringLiteral(".so"))) {
                 fi.setFile(path + "/" + entry);
             } else {
                 fi.setFile(path + "/" + entry + "/libguh_deviceplugin" + entry + ".so");
@@ -1020,7 +1020,7 @@ void DeviceManager::loadPlugins()
         qCDebug(dcDeviceManager) << "Loading plugins from:" << dir.absolutePath();
         foreach (const QString &entry, dir.entryList()) {
             QFileInfo fi;
-            if (entry.startsWith("libguh_deviceplugin") && entry.endsWith(".so")) {
+            if (entry.startsWith(QStringLiteral("libguh_deviceplugin")) && entry.endsWith(QStringLiteral(".so"))) {
                 fi.setFile(path + "/" + entry);
             } else {
                 fi.setFile(path + "/" + entry + "/libguh_deviceplugin" + entry + ".so");

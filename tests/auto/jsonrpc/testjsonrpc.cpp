@@ -73,7 +73,7 @@ private:
 QStringList TestJSONRPC::extractRefs(const QVariant &variant)
 {
     if (variant.canConvert(QVariant::String)) {
-        if (variant.toString().startsWith("$ref")) {
+        if (variant.toString().startsWith(QStringLiteral("$ref"))) {
             return QStringList() << variant.toString();
         }
     }

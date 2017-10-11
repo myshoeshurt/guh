@@ -127,7 +127,7 @@ void Radio433BrennenstuhlGateway::readData()
         m_gateway->readDatagram(data.data(), data.size(), &address, &port);
     }
 
-    if (data.startsWith("HCGW:")) {
+    if (data.startsWith(QByteArrayLiteral("HCGW:"))) {
         m_timeout->stop();
         if (!m_available) {
             m_gatewayAddress = address;

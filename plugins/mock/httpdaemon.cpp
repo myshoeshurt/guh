@@ -176,7 +176,7 @@ QString HttpDaemon::generateWebPage()
         "<form action=\"/generateevent\" method=\"get\">"
         "<td>%1<input type='hidden' name='eventtypeid' value='%2'/></td>"
         "<td>").arg(eventType.name()).arg(eventType.id().toString()));
-        if (!eventType.name().endsWith(" changed")) {
+        if (!eventType.name().endsWith(QStringLiteral(" changed"))) {
             body.append("<input type='submit' value='Generate'/>");
         }
         body.append("</td>"

@@ -228,7 +228,7 @@ void SslServer::onSocketReadyRead()
         m_receiveBuffer = m_receiveBuffer.right(m_receiveBuffer.length() - splitIndex - 2);
         splitIndex = m_receiveBuffer.indexOf("}\n{");
     }
-    if (m_receiveBuffer.endsWith("}\n")) {
+    if (m_receiveBuffer.endsWith(QByteArrayLiteral("}\n"))) {
         emit dataAvailable(socket, m_receiveBuffer);
     }
 }
