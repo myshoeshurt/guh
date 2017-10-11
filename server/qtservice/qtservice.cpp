@@ -835,7 +835,7 @@ int QtServiceBase::exec()
         }
     }
 #if defined(Q_OS_UNIX)
-    if (::getenv("QTSERVICE_RUN")) {
+    if (!qgetenv("QTSERVICE_RUN").isEmpty()) {
         // Means we're the detached, real service process.
         int ec = d_ptr->run(true, d_ptr->args);
         if (ec == -1)

@@ -118,8 +118,8 @@ static QString absPath(const QString &path)
             dir.cd(path.left(slashpos));
             ret = dir.absolutePath();
         } else { // Need to search $PATH
-            char *envPath = ::getenv("PATH");
-            if (envPath) {
+            QByteArray envPath = qgetenv("PATH");
+            if (!envPath.isEmpty()) {
                 QStringList envPaths = QString::fromLocal8Bit(envPath).split(':');
                 for (int i = 0; i < envPaths.size(); ++i) {
                     if (QFile::exists(envPaths.at(i) + QLatin1String("/") + QString(path))) {
@@ -405,7 +405,7 @@ bool QtServiceBasePrivate::start()
     }
     // Could just call controller.start() here, but that would fail if
     // we're not installed. We do not want to strictly require installation.
-    ::setenv("QTSERVICE_RUN", "1", 1);  // Tell the detached process it's it
+    qputenv("QTSERVICE_RUN", "1");  // Tell the detached process it's it
     return QProcess::startDetached(filePath(), args.mid(1), "/");
 }
 
