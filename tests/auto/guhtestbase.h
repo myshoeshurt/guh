@@ -53,6 +53,7 @@ extern ActionTypeId mockActionIdAsyncFailing;
 extern EventTypeId mockEvent1Id;
 extern EventTypeId mockEvent2Id;
 extern StateTypeId mockIntStateId;
+extern StateTypeId mockBatteryCriticalStateId;
 extern StateTypeId mockBoolStateId;
 
 // ParamTypes from mock devices

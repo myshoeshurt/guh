@@ -30,7 +30,6 @@ HEADERS += devicemanager.h \
            loggingcategories.h \
            guhsettings.h \
            plugin/device.h \
-           plugin/deviceclass.h \
            plugin/deviceplugin.h \
            plugin/devicedescriptor.h \
            plugin/devicepairinginfo.h \
@@ -62,6 +61,7 @@ HEADERS += devicemanager.h \
            coap/corelinkparser.h \
            coap/corelink.h \
            coap/coapobserveresource.h \
+           types/deviceclass.h \
            types/action.h \
            types/actiontype.h \
            types/state.h \
@@ -76,12 +76,12 @@ HEADERS += devicemanager.h \
            types/ruleaction.h \
            types/ruleactionparam.h \
            types/statedescriptor.h \
+           types/interface.h
 
 SOURCES += devicemanager.cpp \
            loggingcategories.cpp \
            guhsettings.cpp \
            plugin/device.cpp \
-           plugin/deviceclass.cpp \
            plugin/deviceplugin.cpp \
            plugin/devicedescriptor.cpp \
            plugin/devicepairinginfo.cpp \
@@ -113,6 +113,7 @@ SOURCES += devicemanager.cpp \
            coap/corelinkparser.cpp \
            coap/corelink.cpp \
            coap/coapobserveresource.cpp \
+           types/deviceclass.cpp \
            types/action.cpp \
            types/actiontype.cpp \
            types/state.cpp \
@@ -127,6 +128,7 @@ SOURCES += devicemanager.cpp \
            types/ruleaction.cpp \
            types/ruleactionparam.cpp \
            types/statedescriptor.cpp \
+           types/interface.cpp
 
 # install plugininfo python script for libguh-dev
 generateplugininfo.files = $$top_srcdir/plugins/guh-generateplugininfo
