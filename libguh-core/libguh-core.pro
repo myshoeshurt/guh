@@ -75,6 +75,8 @@ HEADERS += guhcore.h \
     cloudmanager.h \
     MbedTLS/MbedTLSConnection.hpp \
     janusconnector.h \
+    pushbuttondbusservice.h \
+
 
 SOURCES += guhcore.cpp \
     tcpserver.cpp \
@@ -132,3 +134,4 @@ SOURCES += guhcore.cpp \
     cloudmanager.cpp \
     MbedTLS/MbedTLSConnection.cpp \
     janusconnector.cpp \
+    pushbuttondbusservice.cpp \
