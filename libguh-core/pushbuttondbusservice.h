@@ -30,6 +30,7 @@ class PushButtonDBusService : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO("D-Bus Interface", "io.guh.nymead")
+
 public:
     explicit PushButtonDBusService(const QString &serviceName, const QString &objectPath, UserManager *parent);
 
@@ -41,6 +42,7 @@ signals:
 
 private:
     UserManager *m_userManager;
+
 };
 
 }

@@ -57,11 +57,10 @@ QByteArray PushButtonDBusService::GenerateAuthToken(const QString &deviceName)
             token = t;
         }
     });
+
     m_userManager->pushButtonPressed();
     disconnect(c);
     return token;
-
-
 }
 
 }
