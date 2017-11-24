@@ -971,7 +971,7 @@ DeviceManager::DeviceError DeviceManager::executeAction(const Action &action)
 /*! Centralized time tick for the GuhTimer resource. Ticks every second. */
 void DeviceManager::timeTick()
 {
-
+    m_hardwareManager->timeTick();
 }
 
 void DeviceManager::loadPlugins()
