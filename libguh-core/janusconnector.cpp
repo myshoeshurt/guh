@@ -35,7 +35,10 @@ JanusConnector::JanusConnector(QObject *parent) : QObject(parent)
     connect(m_socket, &QLocalSocket::disconnected, this, &JanusConnector::onDisconnected);
     connect(m_socket, &QLocalSocket::readyRead, this, &JanusConnector::onReadyRead);
 
-    connectToJanus();
+    // When Janus crashes it will leave the socket in a very broken state which causes QLocalSocket to spin the CPU
+    // So let's use a rather short heartbeat to send ping messages and clean things up in case they are not acked.
+    m_pingTimer.setInterval(1000);
+    connect(&m_pingTimer, &QTimer::timeout, this, &JanusConnector::heartbeat);
 }
 
 bool JanusConnector::connectToJanus()
@@ -58,8 +61,16 @@ bool JanusConnector::connectToJanus()
     }
 
     m_socket->setSocketDescriptor(sock);
+    m_pingTimer.start();
 
     return true;
+}
+
+void JanusConnector::disconnectFromJanus()
+{
+    m_socket->close();
+    m_pingTimer.stop();
+    m_lastUnconfirmedPing = QDateTime();
 }
 
 void JanusConnector::createSession(JanusConnector::WebRtcSession *session)
@@ -233,6 +244,9 @@ void JanusConnector::onReadyRead()
                 qCDebug(dcJanus()) << "Session" << session << "timed out. Removing session";
                 m_sessions.remove(session->sessionId);
                 delete session;
+                if (m_sessions.isEmpty()) {
+                    disconnectFromJanus();
+                }
                 return;
             }
         }
@@ -269,6 +283,9 @@ void JanusConnector::onReadyRead()
                 hangup.insert("reason", map.value("reason").toString());
                 emit webRtcHandshakeMessageReceived(session->sessionId, hangup);
                 m_sessions.remove(session->sessionId);
+                if (m_sessions.isEmpty()) {
+                    disconnectFromJanus();
+                }
                 return;
             }
         }
@@ -287,6 +304,7 @@ void JanusConnector::onReadyRead()
     if (!session) {
         if (transactionId == "pingety") {
             qCDebug(dcJanus()) << "Received PONG from Janus";
+            m_lastUnconfirmedPing = QDateTime();
             return;
         }
         if (transactionId == "keepalive") {
@@ -315,6 +333,9 @@ void JanusConnector::onReadyRead()
         }
         qCWarning(dcJanus()) << "Error establishing session";
         delete m_sessions.take(session->sessionId);
+        if (m_sessions.isEmpty()) {
+            disconnectFromJanus();
+        }
         return;
     }
 
@@ -363,13 +384,21 @@ void JanusConnector::onReadyRead()
 
 void JanusConnector::heartbeat()
 {
+    if (!m_lastUnconfirmedPing.isNull()) {
+        qCWarning(dcJanus()) << "Last ping not echoed by Janus. Seems the connection broke down. Cleaning up...";
+        while (!m_sessions.isEmpty()) {
+            delete m_sessions.take(m_sessions.keys().first());
+        }
+        disconnectFromJanus();
+        return;
+    }
     QVariantMap map;
     map.insert("janus", "ping");
     map.insert("transaction", "pingety");
     QJsonDocument jsonDoc = QJsonDocument::fromVariant(map);
-//    qCDebug(dcJanus()) << "Sending PING to Janus";
-    m_socket->write(jsonDoc.toJson());
-    m_socket->flush();
+    qCDebug(dcJanus()) << "Sending PING to Janus";
+    m_lastUnconfirmedPing = QDateTime::currentDateTime();
+    writeToJanus(jsonDoc.toJson());
 }
 
 void JanusConnector::createChannel(WebRtcSession *session)
@@ -389,10 +418,16 @@ void JanusConnector::createChannel(WebRtcSession *session)
 
 void JanusConnector::writeToJanus(const QByteArray &data)
 {
+    if (!m_socket->isOpen() && !connectToJanus()) {
+        qCWarning(dcJanus()) << "Error connecting to Janus. Cannot write data to it.";
+        return;
+    }
     qCDebug(dcJanusTraffic()) << "Writing to janus" << data;
     qint64 count = m_socket->write(data);
     if (count != data.length()) {
         qCWarning(dcJanus()) << "Error writing to Janus.";
+        disconnectFromJanus();
+        return;
     }
     m_socket->flush();
 }
