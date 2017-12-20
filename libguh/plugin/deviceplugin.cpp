@@ -739,6 +739,7 @@ void DevicePlugin::loadMetaData()
                 }
                 StateType stateType(st.value("id").toString());
                 stateType.setName(st.value("name").toString());
+                qWarning() << "******** translation:" << m_metaData.value("name").toString() << st.value("displayName").toString() << translateValue(m_metaData.value("name").toString(), st.value("displayName").toString());
                 stateType.setDisplayName(translateValue(m_metaData.value("name").toString(), st.value("displayName").toString()));
                 stateType.setIndex(index++);
                 stateType.setType(t);
@@ -1074,6 +1075,7 @@ QStringList DevicePlugin::verifyFields(const QStringList &fields, const QJsonObj
 QString DevicePlugin::translateValue(const QString &context, const QString &string) const
 {
     QString translation = m_translator->translate(context.toUtf8().constData(), string.toUtf8().constData());
+    qWarning() << "Have translation for" << context << string << ":" << translation;
     if (translation.isEmpty())
         translation = string;
 

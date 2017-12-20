@@ -63,7 +63,7 @@ def extractPlugin(pluginMap):
         printInfo('Define PluginId pluginId = %s' % (pluginMap['id']))
         if args.filetype is 'i':
             writeToFile('PluginId pluginId = PluginId(\"%s\");' % (pluginMap['id']))
-        addTranslationString(pluginMap['name'], 'The name of the plugin %s (%s)' % (pluginMap['name'], pluginMap['id']))
+        addTranslationString(pluginMap['displayName'], 'The name of the plugin %s (%s)' % (pluginMap['name'], pluginMap['id']))
         createExternDefinition('PluginId', variableName)
 
     if 'paramTypes' in pluginMap:
@@ -186,7 +186,7 @@ def extractStateTypes(stateTypes, deviceClassName):
                 if args.filetype is 'i':
                     writeToFile('ParamTypeId %s = ParamTypeId(\"%s\");' % (variableName, stateType['id']))
                 createExternDefinition('ParamTypeId', variableName)
-                addTranslationString(stateType['name'], 'The name of the ParamType of StateType (%s) of DeviceClass %s' % (stateType['id'], deviceClassName))
+                addTranslationString(stateType['displayName'], 'The name of the ParamType of StateType (%s) of DeviceClass %s' % (stateType['id'], deviceClassName))
             else:
                 printWarning('Duplicated variable name \"%s\" for ParamTypeId %s -> skipping' % (variableName, stateType['id']))
 

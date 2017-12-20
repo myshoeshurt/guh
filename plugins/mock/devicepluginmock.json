@@ -6,7 +6,7 @@
         {
             "id": "e1f72121-a426-45e2-b475-8262b5cdf103",
             "name": "configParamInt",
-            "displayName": "configParamInt",
+            "displayName": "Integer Parameter",
             "type": "int",
             "defaultValue": 42,
             "minValue": 1,
@@ -15,7 +15,7 @@
         {
             "id": "c75723b6-ea4f-4982-9751-6c5e39c88145",
             "name": "configParamBool",
-            "displayName": "configParamBool",
+            "displayName": "Bool Parameter",
             "type": "bool",
             "defaultValue": true
         }
@@ -24,7 +24,7 @@
         {
             "id": "2062d64d-3232-433c-88bc-0d33c0ba2ba6",
             "name": "guh",
-            "displayName": "guh",
+            "displayName": "guh.io",
             "deviceClasses": [
                 {
                     "id": "753f0d32-0468-4d08-82ed-1964aab03298",
@@ -44,7 +44,7 @@
                         {
                             "id": "d222adb4-2f9c-4c3f-8655-76400d0fb6ce",
                             "name": "resultCount",
-                            "displayName": "resultCount",
+                            "displayName": "result count",
                             "type": "int",
                             "defaultValue": 2,
                             "allowedValues": [1, 2]
@@ -60,7 +60,7 @@
                         {
                             "id": "f2977061-4dd0-4ef5-85aa-3b7134743be3",
                             "name": "async",
-                            "displayName": "async",
+                            "displayName": "asynchronous reply",
                             "type": "bool",
                             "defaultValue": false,
                             "readOnly": true
@@ -68,7 +68,7 @@
                         {
                             "id": "ae8f8901-f2c1-42a5-8111-6d2fc8e4c1e4",
                             "name": "broken",
-                            "displayName": "broken",
+                            "displayName": "broken error reply",
                             "type": "bool",
                             "defaultValue": false
                         }
@@ -108,7 +108,7 @@
                                 {
                                     "id": "0550e16d-60b9-4ba5-83f4-4d3cee656121",
                                     "name": "mockParamInt",
-                                    "displayName": "mockParamInt",
+                                    "displayName": "Mock parameter (integer)",
                                     "type": "int",
                                     "defaultValue": 10
                                 }
@@ -124,13 +124,13 @@
                                 {
                                     "id": "a2d3a256-a551-4712-a65b-ecd5a436a1cb",
                                     "name": "mockActionParam1",
-                                    "displayName": "mockActionParam1",
+                                    "displayName": "Action parameter 1 (integer)",
                                     "type": "int"
                                 },
                                 {
                                     "id": "304a4899-18be-4e3b-94f4-d03be52f3233",
                                     "name": "mockActionParam2",
-                                    "displayName": "mockActionParam2",
+                                    "displayName": "Action parameter 2 (bool)",
                                     "type": "bool"
                                 }
                             ]
@@ -181,7 +181,7 @@
                         {
                             "id": "f2977061-4dd0-4ef5-85aa-3b7134743be3",
                             "name": "async",
-                            "displayName": "async",
+                            "displayName": "asynchronous",
                             "type": "bool",
                             "defaultValue": false,
                             "readOnly": true
@@ -228,7 +228,7 @@
                                 {
                                     "id": "0550e16d-60b9-4ba5-83f4-4d3cee656121",
                                     "name": "mockParamInt",
-                                    "displayName": "mockParamInt",
+                                    "displayName": "Mock parameter (integer)",
                                     "type": "int",
                                     "defaultValue": 10
                                 }
@@ -244,13 +244,13 @@
                                 {
                                     "id": "a2d3a256-a551-4712-a65b-ecd5a436a1cb",
                                     "name": "mockActionParam1",
-                                    "displayName": "mockActionParam1",
+                                    "displayName": "Action parameter 1 (integer)",
                                     "type": "int"
                                 },
                                 {
                                     "id": "304a4899-18be-4e3b-94f4-d03be52f3233",
                                     "name": "mockActionParam2",
-                                    "displayName": "mockActionParam2",
+                                    "displayName": "Action parameter 2 (bool)",
                                     "type": "bool"
                                 }
                             ]
@@ -296,7 +296,7 @@
                         {
                             "id": "d222adb4-2f9c-4c3f-8655-76400d0fb6ce",
                             "name": "resultCount",
-                            "displayName": "resultCount",
+                            "displayName": "result count",
                             "type": "int",
                             "defaultValue": 2,
                             "allowedValues": [1, 2]
@@ -394,7 +394,7 @@
                         {
                             "id": "d222adb4-2f9c-4c3f-8655-76400d0fb6ce",
                             "name": "resultCount",
-                            "displayName": "resultCount",
+                            "displayName": "result count",
                             "type": "int",
                             "defaultValue": 2,
                             "allowedValues": [1, 2]
